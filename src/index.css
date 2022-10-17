@@ -11,3 +11,38 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+/* *** NAVBAR *** */
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #b30000;
+  color: white;
+  cursor: pointer;
+  z-index: 2;
+  /* position: fixed;
+  width: 100%; */
+  padding: 0rem 3rem;
+}
+
+button {
+  padding: 0.5rem 1rem;
+  border-radius: 0.4rem;
+  border: transparent;
+  color: #cc0000;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+/* *** FORM *** */
+
+.form {
+  margin: auto;
+  width: 50%;
+  margin-top: 3rem;
+  margin-bottom: 2rem;
+  display: flex;
+  flex-direction: column;
+}
