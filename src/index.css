@@ -1,15 +1,46 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans",
+    "Droid Sans", "Helvetica Neue", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
+}
+
+/* *** SIGNIN *** */
+.signin {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  background-color: #660000;
+  color: #fff;
+  height: 100vh;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.signin-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+form input {
+  padding: 1rem;
+  border: 3px solid #fff;
+  margin-top: 1rem;
+  border-radius: 2rem;
+  background: transparent;
+  color: #fff;
+  width: 25%;
+}
+
+::placeholder {
+  color: #fff;
+  font-size: 17px;
 }
 
 /* *** NAVBAR *** */
@@ -18,26 +49,60 @@ nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #b30000;
+  background-color: #800000;
   color: white;
   cursor: pointer;
   z-index: 2;
-  /* position: fixed;
-  width: 100%; */
-  padding: 0rem 3rem;
+  padding: 0.5rem 5.2rem;
+  box-shadow: 1px 5px 7px 1px rgba(0, 0, 0, 0.75);
+  -webkit-box-shadow: 1px 5px 7px 1px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 1px 5px 7px 1px rgba(0, 0, 0, 0.75);
 }
 
 button {
-  padding: 0.5rem 1rem;
+  padding: 0.6rem 1.1rem;
   border-radius: 0.4rem;
   border: transparent;
-  color: #cc0000;
+  color: #800000;
   font-weight: bold;
   cursor: pointer;
+  font-size: 18px;
+}
+
+/* *** SIDEBAR *** */
+.sidebar {
+  list-style-type: none;
+  padding: 1.2rem;
+  font-size: 20px;
+  text-decoration: none;
+  border: 1px solid transparent;
+  margin: 2rem 0.3rem 2rem 1rem;
+  border-radius: 0.3rem;
+  box-shadow: -1px 1px 7px -1px rgba(0, 0, 0, 0.83);
+  -webkit-box-shadow: -1px 1px 7px -1px rgba(0, 0, 0, 0.83);
+  -moz-box-shadow: -1px 1px 7px -1px rgba(0, 0, 0, 0.83);
+  text-align: center;
+  background-color: #800000;
+  color: #fff;
+}
+
+a {
+  text-decoration: none;
+  color: #fff;
+  border: 3px solid #fff;
+  padding: 0.7rem;
+  border-radius: 40%;
+}
+
+.sidebar-li {
+  margin-top: 2.4rem;
+}
+
+.li-donor {
+  margin-bottom: 2.3rem;
 }
 
 /* *** FORM *** */
-
 .form {
   margin: auto;
   width: 50%;
@@ -45,4 +110,22 @@ button {
   margin-bottom: 2rem;
   display: flex;
   flex-direction: column;
+}
+
+/* *** RECORDS *** */
+.records,
+.form-wrapper {
+  padding: 2rem;
+  width: 90%;
+  border: 1px solid transparent;
+  margin: 2rem 1rem 2rem 0.3rem;
+  border-radius: 0.3rem;
+  box-shadow: -1px 1px 7px -1px rgba(0, 0, 0, 0.83);
+  -webkit-box-shadow: -1px 1px 7px -1px rgba(0, 0, 0, 0.83);
+  -moz-box-shadow: -1px 1px 7px -1px rgba(0, 0, 0, 0.83);
+  color: #800000;
+}
+
+.text-center {
+  text-align: center;
 }

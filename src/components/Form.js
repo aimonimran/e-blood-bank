@@ -1,14 +1,10 @@
 import { ACTIONS } from "./../App";
-import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
-import Select from "@mui/material/Select";
 import Button from "@mui/material/Button";
 import Input from "./common/Input";
 import "../index.css";
+import CustomInputLabel from "./common/CustomInputLabel";
 
 const Form = ({ form, dispatch, onSubmit }) => {
-  console.log(form);
-
   const handleFormChange =
     (name) =>
     ({ target: { value } }) => {
@@ -16,58 +12,28 @@ const Form = ({ form, dispatch, onSubmit }) => {
     };
 
   return (
-    <div>
+    <div className="form-wrapper">
+      <h1 className="text-center">Donor Information</h1>
       <form onSubmit={onSubmit} className="form">
-        <Input
-          value={form.name}
-          onChange={handleFormChange("name")}
-          label="Name"
-        />
-        <Input
-          value={form.age}
-          onChange={handleFormChange("age")}
-          label="Age"
-        />
-        <Input
+        <Input value={form.name} onChange={handleFormChange("name")} label="Name" />
+        <Input type="number" value={form.age} onChange={handleFormChange("age")} label="Age" />
+
+        <CustomInputLabel
+          label="Gender"
           value={form.gender}
           onChange={handleFormChange("gender")}
-          label="Gender"
+          MenuItemList={["Male", "Female"]}
         />
-
-        <InputLabel id="demo-select-small">Blood Type</InputLabel>
-        <Select
-          labelId="demo-select-small"
-          id="demo-select-small"
-          value={form.bloodType}
+        <CustomInputLabel
           label="Blood Type"
+          value={form.bloodType}
           onChange={handleFormChange("bloodType")}
-        >
-          <MenuItem value="A+">A+</MenuItem>
-          <MenuItem value="A-">A-</MenuItem>
-          <MenuItem value="B+">B+</MenuItem>
-          <MenuItem value="B-">B-</MenuItem>
-          <MenuItem value="O+">O+</MenuItem>
-          <MenuItem value="O-">O-</MenuItem>
-          <MenuItem value="AB+">AB+</MenuItem>
-          <MenuItem value="AB-">AB-</MenuItem>
-        </Select>
+          MenuItemList={["A+", "A-", "B+", "B-", "O+", "O-", "AB+", "AB-"]}
+        />
 
-        <Input
-          value={form.weight}
-          onChange={handleFormChange("weight")}
-          label="Weight"
-        />
-        <Input
-          value={form.donationDate}
-          onChange={handleFormChange("donationDate")}
-          label="Donation Date"
-        />
-        <Button
-          type="submit"
-          sx={{ margin: "auto", marginTop: "0.5rem" }}
-          variant="outlined"
-          color="error"
-        >
+        <Input type="number" value={form.weight} onChange={handleFormChange("weight")} label="Weight" />
+        <Input type="date" value={form.donationDate} onChange={handleFormChange("donationDate")} />
+        <Button type="submit" sx={{ margin: "auto", marginTop: "0.5rem" }} variant="outlined" color="error">
           Submit
         </Button>
       </form>

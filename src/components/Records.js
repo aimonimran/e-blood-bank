@@ -10,7 +10,7 @@ import Paper from "@mui/material/Paper";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
-    backgroundColor: "#b30000",
+    backgroundColor: "#800000",
     color: theme.palette.common.white,
   },
   [`&.${tableCellClasses.body}`]: {
@@ -37,11 +37,15 @@ const column = [
   { name: "Donation Date", align: "right" },
 ];
 
-const Records = ({ data }) => {
+const Records = ({ data, searchQuery }) => {
   return (
+    <div className="records">
+    <h1 className="text-center">List of Donors</h1>
+    {searchQuery && <p className="text-center" style={{color:'gray'}}>Donors For Blood Type {searchQuery}</p>}
+
     <TableContainer component={Paper}>
       <Table
-        sx={{ margin: "auto", marginTop: "2rem", width: "90%" }}
+        sx={{ margin: "auto", marginTop: "2rem", marginBottom:'2rem', width: "85%" }}
         aria-label="customized table"
       >
         <TableHead>
@@ -63,7 +67,7 @@ const Records = ({ data }) => {
               <StyledTableCell align="right">{item.age}</StyledTableCell>
               <StyledTableCell align="left">{item.gender}</StyledTableCell>
               <StyledTableCell align="left">{item.bloodType}</StyledTableCell>
-              <StyledTableCell align="right">{item.weight}KG</StyledTableCell>
+              <StyledTableCell align="right">{item.weight} KG</StyledTableCell>
               <StyledTableCell align="right">
                 {item.donationDate}
               </StyledTableCell>
@@ -72,6 +76,7 @@ const Records = ({ data }) => {
         </TableBody>
       </Table>
     </TableContainer>
+    </div>
   );
 };
 

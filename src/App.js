@@ -1,8 +1,11 @@
-import React, { useReducer, useState } from "react";
+import React, { useMemo, useReducer, useState } from "react";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import Records from "./components/Records";
 import Nav from "./components/Nav";
 import Form from "./components/Form";
 import "./index.css";
+import Signin from "./components/Signin";
+import Sidebar from "./components/Sidebar";
 
 export const ACTIONS = {
   ON_FORM_CHANGE: "ON_FORM_CHANGE",
@@ -36,29 +39,128 @@ function reducer(state, action) {
 const initialData = [
   {
     name: "Aimon",
-    age: "21",
+    age: 21,
     gender: "Female",
     bloodType: "O+",
-    weight: "42",
-    donationDate: "22/2/2020",
+    weight: 42,
+    donationDate: "20/02/2020",
+  },
+  {
+    name: "Ali",
+    age: 45,
+    gender: "Male",
+    bloodType: "O-",
+    weight: 76,
+    donationDate: "22/09/2018",
+  },
+  {
+    name: "Ahmed",
+    age: 20,
+    gender: "Male",
+    bloodType: "A+",
+    weight: 50,
+    donationDate: "17/04/2021",
+  },
+  {
+    name: "Maheen",
+    age: 29,
+    gender: "Female",
+    bloodType: "A-",
+    weight: 48,
+    donationDate: "02/08/2018",
+  },
+  {
+    name: "Fahad",
+    age: 26,
+    gender: "Male",
+    bloodType: "A-",
+    weight: 60,
+    donationDate: "19/06/2022",
+  },
+  {
+    name: "Tasbiha",
+    age: 30,
+    gender: "Female",
+    bloodType: "B+",
+    weight: 48,
+    donationDate: "04/02/2018",
+  },
+  {
+    name: "Kashaf",
+    age: 34,
+    gender: "Female",
+    bloodType: "B-",
+    weight: 57,
+    donationDate: "28/10/2017",
+  },
+  {
+    name: "Malik",
+    age: 21,
+    gender: "Male",
+    bloodType: "AB+",
+    weight: 50,
+    donationDate: "15/09/2014",
+  },
+  {
+    name: "Kamran",
+    age: 28,
+    gender: "Male",
+    bloodType: "AB-",
+    weight: 70,
+    donationDate: "04/02/2012",
   },
 ];
 
 function App() {
   const [form, dispatch] = useReducer(reducer, initialState);
   const [data, setData] = useState(initialData);
+  const [searchQuery, setSearchQuery] = useState();
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    if (!form.name || !form.age || !form.gender || !form.bloodType || !form.weight || !form.donationDate) return alert('Form is not properly filled!');
+
+    if (form.age < 18 || form.age > 60 || form.weight < 45) {
+      dispatch({ type: ACTIONS.ON_RESET });
+      return alert("Sorry, you cannot donate blood!");
+    }
+
     setData((prevData) => [...prevData, form]);
+    alert(`Your name has been successfully added to our donors' list. You can view it under 'Donor's list'.`);
     dispatch({ type: ACTIONS.ON_RESET });
   };
-  console.log(data);
+
+  const handleSelect = (query) => setSearchQuery(query);
+
+  const filterRecords = useMemo(() => {
+    if (!searchQuery || searchQuery === "O-") return data;
+
+    if (searchQuery === "A+") return data.filter((_data) => ['A+', 'AB+'].includes(_data.bloodType));
+    if (searchQuery === "B+") return data.filter((_data) => ['B+', 'AB+'].includes(_data.bloodType));
+    if (searchQuery === "A-") return data.filter((_data) => _data.bloodType.includes("A"));
+    if (searchQuery === "B-") return data.filter((_data) => _data.bloodType.includes("B"));
+    if (searchQuery === "O+") return data.filter((_data) => _data.bloodType.includes("+"));
+    if (searchQuery === "AB-") return data.filter((_data) => _data.bloodType.includes("AB"));
+    return data.filter((_data) => _data.bloodType === searchQuery);
+  }, [searchQuery, data]);
+
   return (
     <>
+      {/* <Signin /> */}
+
       <Nav />
-      <Form form={form} dispatch={dispatch} onSubmit={handleSubmit} />
-      <Records data={data} />
+      <Router>
+        <div style={{ display: "flex" }}>
+          <Sidebar handleSelect={handleSelect} />
+          <div style={{ width: "100%", margin: "auto" }}>
+            <Routes>
+              <Route path="/" element={<Records data={filterRecords} searchQuery={searchQuery} />} />
+              <Route path="/form" element={<Form form={form} dispatch={dispatch} onSubmit={handleSubmit} />} />
+            </Routes>
+          </div>
+        </div>
+      </Router>
     </>
   );
 }
