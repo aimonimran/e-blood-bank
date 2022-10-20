@@ -1,12 +1,25 @@
-import React from 'react';
-import { BrowserRouter as Router } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
+import { auth } from '../firebase';
 import AccountNavigator from './account.navigation';
 import AppNavigator from './app.navigation';
 
 function Navigation() {
-	const { currentUser } = useAuth();
-	return <Router>{currentUser ? <AppNavigator /> : <AccountNavigator />}</Router>;
+	const { currentUser, setCurrentUser } = useAuth();
+
+	const [loading, setLoading] = useState(true)
+
+	useEffect(() => {
+		return auth.onAuthStateChanged((user) => {
+			if (user) setCurrentUser(user.email);
+			setLoading(false);
+		});
+	}, [setCurrentUser]);
+
+	if (loading) return <p>loading...</p>
+
+	if (currentUser) return <AppNavigator />
+	return <AccountNavigator />
 }
 
 export default Navigation;

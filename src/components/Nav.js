@@ -4,7 +4,7 @@ import { useAuth } from "../contexts/AuthContext";
 
 const Nav = () => {
   const { logout } = useAuth();
-  const [error, setError] = useState("");
+  const [, setError] = useState("");
   const history = useNavigate();
 
   const handleLogout = async () => {
@@ -12,7 +12,7 @@ const Nav = () => {
 
     try {
       await logout();
-      history("/login");
+      history("/");
     } catch {
       setError("Failed to logout!");
     }

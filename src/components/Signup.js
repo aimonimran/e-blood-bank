@@ -38,7 +38,7 @@ const Signup = () => {
           Sign Up
         </button>
 
-        <p style={{ textTransform: "capitalize" }}>Already have an account? <Link style={{border:'none'}} to='/login'>Log In</Link></p>
+        <p style={{ textTransform: "capitalize" }}>Already have an account? <Link style={{border:'none'}} to='/'>Log In</Link></p>
       </form>
     </div>
   );

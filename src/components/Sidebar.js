@@ -33,7 +33,7 @@ const Sidebar = ({ handleSelect }) => {
 					<li className='li-donor'>
 						<Link
 							onClick={() => setRoute((prevRoute) => !prevRoute)}
-							to={`/dashboard${route ? '' : '/form'}`}
+							to={`/${route ? '' : 'form'}`}
 						>
 							{route ? 'Donor List' : 'Click To Donate'}
 						</Link>
