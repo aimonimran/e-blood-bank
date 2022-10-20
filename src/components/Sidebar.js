@@ -1,9 +1,14 @@
 import React, { useState } from "react";
 import CustomInputLabel from "./../components/common/CustomInputLabel";
 import { Link } from "react-router-dom";
+import { useAuth } from "../contexts/AuthContext";
 
 const Sidebar = ({ handleSelect }) => {
   const [route, setRoute] = useState(false);
+  const { currentUser } = useAuth();
+  if (currentUser) {
+    var [first, second] = currentUser.email.split("@");
+  }
 
   return (
     <div
@@ -12,14 +17,18 @@ const Sidebar = ({ handleSelect }) => {
       }}
     >
       <ul className="sidebar">
-        <h3>Welcome XYZ!</h3>
-        {!route && <p style={{ color: "#fff", margin: "2rem 0 0.7rem 0" }}>Select your patient's blood type to filter donors.</p>}
-        {!route && <CustomInputLabel
-          label="Blood Type"
-          color="white"
-          onChange={(e) => handleSelect(e.target.value)}
-          MenuItemList={["A+", "A-", "B+", "B-", "O+", "O-", "AB+", "AB-"]}
-        />}
+        <h3>Welcome {currentUser && first}!</h3>
+        {!route && (
+          <p style={{ color: "#fff", margin: "2rem 0 0.7rem 0" }}>Select your patient's blood type to filter donors.</p>
+        )}
+        {!route && (
+          <CustomInputLabel
+            label="Blood Type"
+            color="white"
+            onChange={(e) => handleSelect(e.target.value)}
+            MenuItemList={["A+", "A-", "B+", "B-", "O+", "O-", "AB+", "AB-"]}
+          />
+        )}
 
         <div className="sidebar-li">
           {route && (

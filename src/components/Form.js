@@ -1,10 +1,12 @@
-import { ACTIONS } from "./../App";
+import { ACTIONS } from "./../components/Dashboard";
 import Button from "@mui/material/Button";
 import Input from "./common/Input";
 import "../index.css";
 import CustomInputLabel from "./common/CustomInputLabel";
+import Nav from "./Nav";
 
 const Form = ({ form, dispatch, onSubmit }) => {
+  console.log('Form component');
   const handleFormChange =
     (name) =>
     ({ target: { value } }) => {
