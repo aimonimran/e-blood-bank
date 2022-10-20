@@ -16,7 +16,7 @@ const Login = () => {
     try {
       setError("");
       await login(emailRef.current.value, passwordRef.current.value);
-      history('/');
+      history('/dashboard');
     } catch {
       setError("Email or password is incorrect.");
     }

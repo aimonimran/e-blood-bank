@@ -151,8 +151,8 @@ function Dashboard() {
         <Sidebar handleSelect={handleSelect} />
         <div style={{ width: "100%", margin: "auto" }}>
           <Routes>
-            <Route exact path="/dashboard" element={<Records data={filterRecords} searchQuery={searchQuery} />} />
-            <Route exact path="/dashboard/form" element={<Form form={form} dispatch={dispatch} onSubmit={handleSubmit} />} />
+            <Route exact path="/" element={<Records data={filterRecords} searchQuery={searchQuery} />} />
+            <Route exact path="/form" element={<Form form={form} dispatch={dispatch} onSubmit={handleSubmit} />} />
           </Routes>
         </div>
       </div>
