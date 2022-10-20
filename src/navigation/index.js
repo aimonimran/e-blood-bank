@@ -10,7 +10,7 @@ function Navigation() {
 	const [loading, setLoading] = useState(true)
 
 	useEffect(() => {
-		return auth.onAuthStateChanged((user) => {
+		auth.onAuthStateChanged((user) => {
 			if (user) setCurrentUser(user.email);
 			setLoading(false);
 		});

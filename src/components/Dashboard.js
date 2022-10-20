@@ -1,5 +1,6 @@
 import React, { useMemo, useReducer, useState } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import MissingRoute from "../navigation/missing.navigation";
 import Form from "./Form";
 import Nav from "./Nav";
 import Records from "./Records";
@@ -153,6 +154,7 @@ function Dashboard() {
           <Routes>
             <Route exact path="/" element={<Records data={filterRecords} searchQuery={searchQuery} />} />
             <Route exact path="/form" element={<Form form={form} dispatch={dispatch} onSubmit={handleSubmit} />} />
+				    <Route path='*' element={<MissingRoute />} />
           </Routes>
         </div>
       </div>
