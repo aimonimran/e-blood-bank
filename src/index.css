@@ -10,6 +10,16 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
 }
 
+/* *** PRELOADER *** */
+#preloader {
+  background: rgb(219, 31, 31) url(./assets/preloader.gif) no-repeat center center;
+  background-size: 30%;
+  height: 100vh;
+  width: 100%;
+  position: fixed;
+  z-index: 999;
+}
+
 /* *** SIGNUP *** */
 .signup {
   display: flex;

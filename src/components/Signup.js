@@ -16,13 +16,13 @@ const Signup = () => {
     if (passwordRef.current.value !== confirmPasswordRef.current.value) {
       return setError("Oops! Passwords do not match!");
     }
- 
+
     try {
       setError("");
       await signup(emailRef.current.value, passwordRef.current.value);
-      history('/');
-    } catch {
-      setError("Failed to create account.");
+      history("/");
+    } catch (error) {
+      setError(error.message);
     }
   };
 
@@ -30,6 +30,7 @@ const Signup = () => {
     <div className="signup">
       <h1>Sign Up</h1>
       {error && <h4>Error: {error}</h4>}
+
       <form onSubmit={handleSubmit} className="signup-form">
         <input placeholder="Email" type="email" ref={emailRef} required />
         <input placeholder="Password" type="password" ref={passwordRef} required />
@@ -38,7 +39,12 @@ const Signup = () => {
           Sign Up
         </button>
 
-        <p style={{ textTransform: "capitalize" }}>Already have an account? <Link style={{border:'none'}} to='/'>Log In</Link></p>
+        <p style={{ textTransform: "capitalize" }}>
+          Already have an account?
+          <Link style={{ border: "none" }} to="/">
+            Log In
+          </Link>
+        </p>
       </form>
     </div>
   );

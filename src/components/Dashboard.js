@@ -1,6 +1,7 @@
 import React, { useMemo, useReducer, useState } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import MissingRoute from "../navigation/missing.navigation";
+import { useAuth } from "../contexts/AuthContext";
+import MissingRoute from "../navigation/MissingRoute";
 import Form from "./Form";
 import Nav from "./Nav";
 import Records from "./Records";
@@ -115,15 +116,24 @@ function Dashboard() {
   const [data, setData] = useState(initialData);
   const [searchQuery, setSearchQuery] = useState();
 
+  const { currentUser } = useAuth();
+
+  const username = useMemo(() => {
+    if (currentUser) return currentUser.split("@")[0];
+  }, [currentUser]);
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
     if (!form.name || !form.age || !form.gender || !form.bloodType || !form.weight || !form.donationDate)
       return alert("Form is not properly filled!");
 
-    if (form.age < 18 || form.age > 60 || form.weight < 45) {
-      dispatch({ type: ACTIONS.ON_RESET });
-      return alert("Sorry, you cannot donate blood!");
+    if (form.age < 18) {
+      return alert("Sorry, you cannot donate blood. You are under 18.");
+    } else if (form.age > 60) {
+      return alert("Sorry, you cannot donate blood. You are over 60.");
+    } else if (form.weight < 45) {
+      return alert("Sorry, you cannot donate blood. You are less than 45 KGs.");
     }
 
     setData((prevData) => [...prevData, form]);
@@ -149,12 +159,20 @@ function Dashboard() {
     <Router>
       <Nav />
       <div style={{ display: "flex" }}>
-        <Sidebar handleSelect={handleSelect} />
+        <Sidebar handleSelect={handleSelect} username={username} />
         <div style={{ width: "100%", margin: "auto" }}>
           <Routes>
-            <Route exact path="/" element={<Records data={filterRecords} searchQuery={searchQuery} />} />
-            <Route exact path="/form" element={<Form form={form} dispatch={dispatch} onSubmit={handleSubmit} />} />
-				    <Route path='*' element={<MissingRoute />} />
+            <Route
+              exact
+              path="/"
+              element={<Records currentUser={currentUser} data={filterRecords} searchQuery={searchQuery} />}
+            />
+            <Route
+              exact
+              path="/form"
+              element={<Form username={username} form={form} dispatch={dispatch} onSubmit={handleSubmit} />}
+            />
+            <Route path="*" element={<MissingRoute />} />
           </Routes>
         </div>
       </div>

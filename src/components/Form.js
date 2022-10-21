@@ -1,15 +1,16 @@
+import CustomInputLabel from "./common/CustomInputLabel";
 import { ACTIONS } from "./../components/Dashboard";
 import Button from "@mui/material/Button";
 import Input from "./common/Input";
 import "../index.css";
-import CustomInputLabel from "./common/CustomInputLabel";
-import Nav from "./Nav";
 
-const Form = ({ form, dispatch, onSubmit }) => {
-  console.log('Form component');
+const Form = ({ form, dispatch, onSubmit, username }) => {
   const handleFormChange =
     (name) =>
     ({ target: { value } }) => {
+      if (username) {
+        form.name = username;
+      }
       dispatch({ type: ACTIONS.ON_FORM_CHANGE, payload: { name, value } });
     };
 
@@ -17,7 +18,7 @@ const Form = ({ form, dispatch, onSubmit }) => {
     <div className="form-wrapper">
       <h1 className="text-center">Donor Information</h1>
       <form onSubmit={onSubmit} className="form">
-        <Input value={form.name} onChange={handleFormChange("name")} label="Name" />
+        <Input value={username || form.name} onChange={handleFormChange("name")} label="Name" />
         <Input type="number" value={form.age} onChange={handleFormChange("age")} label="Age" />
 
         <CustomInputLabel

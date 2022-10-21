@@ -7,7 +7,6 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import Nav from "./Nav";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -38,45 +37,47 @@ const column = [
   { name: "Donation Date", align: "right" },
 ];
 
-const Records = ({ data, searchQuery }) => {
+const Records = ({ data, searchQuery, currentUser }) => {
   return (
     <div className="records">
-    <h1 className="text-center">List of Donors</h1>
-    {searchQuery && <p className="text-center" style={{color:'gray'}}>Donors For Blood Type {searchQuery}</p>}
+      <h1 className="text-center">List of Donors</h1>
+      {searchQuery && (
+        <p className="text-center" style={{ color: "gray" }}>
+          Donors For Blood Type {searchQuery}
+        </p>
+      )}
 
-    <TableContainer component={Paper}>
-      <Table
-        sx={{ margin: "auto", marginTop: "2rem", marginBottom:'2rem', width: "85%" }}
-        aria-label="customized table"
-      >
-        <TableHead>
-          <TableRow>
-            {column.map((item, i) => (
-              <StyledTableCell key={i} align={item.align}>
-                {item.name}
-              </StyledTableCell>
+      <TableContainer component={Paper}>
+        <Table
+          sx={{ margin: "auto", marginTop: "2rem", marginBottom: "2rem", width: "85%" }}
+          aria-label="customized table"
+        >
+          <TableHead>
+            <TableRow>
+              {column.map((item, i) => (
+                <StyledTableCell key={i} align={item.align}>
+                  {item.name}
+                </StyledTableCell>
+              ))}
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {data.map((item, i) => (
+              <StyledTableRow>
+                <StyledTableCell component="th" scope="row" align="center">
+                  {i + 1}
+                </StyledTableCell>
+                <StyledTableCell align="left">{item.name}</StyledTableCell>
+                <StyledTableCell align="right">{item.age}</StyledTableCell>
+                <StyledTableCell align="left">{item.gender}</StyledTableCell>
+                <StyledTableCell align="left">{item.bloodType}</StyledTableCell>
+                <StyledTableCell align="right">{item.weight} KG</StyledTableCell>
+                <StyledTableCell align="right">{item.donationDate}</StyledTableCell>
+              </StyledTableRow>
             ))}
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {data.map((item, i) => (
-            <StyledTableRow key={i}>
-              <StyledTableCell component="th" scope="row" align="center">
-                {i + 1}
-              </StyledTableCell>
-              <StyledTableCell align="left">{item.name}</StyledTableCell>
-              <StyledTableCell align="right">{item.age}</StyledTableCell>
-              <StyledTableCell align="left">{item.gender}</StyledTableCell>
-              <StyledTableCell align="left">{item.bloodType}</StyledTableCell>
-              <StyledTableCell align="right">{item.weight} KG</StyledTableCell>
-              <StyledTableCell align="right">
-                {item.donationDate}
-              </StyledTableCell>
-            </StyledTableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+          </TableBody>
+        </Table>
+      </TableContainer>
     </div>
   );
 };

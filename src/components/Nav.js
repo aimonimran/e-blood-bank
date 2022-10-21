@@ -4,7 +4,7 @@ import { useAuth } from "../contexts/AuthContext";
 
 const Nav = () => {
   const { logout } = useAuth();
-  const [, setError] = useState("");
+  const [error, setError] = useState("");
   const history = useNavigate();
 
   const handleLogout = async () => {
